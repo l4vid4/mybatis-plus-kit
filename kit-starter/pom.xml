@@ -17,4 +17,27 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
+    <dependencies>
+        <!-- 核心能力依赖 -->
+        <dependency>
+            <groupId>io.github.l4vid4</groupId>
+            <artifactId>kit-core</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <!-- MyBatis-Plus 启动器 -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>${mybatis.plus.version}</version>
+        </dependency>
+
+        <!-- Spring Boot 自动配置 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-autoconfigure</artifactId>
+        </dependency>
+    </dependencies>
+
+
 </project>
