@@ -22,11 +22,19 @@
 
     <properties>
         <java.version>20</java.version>
-        <spring.boot.version>3.2.5</spring.boot.version>
-        <mybatis.plus.version>3.5.5</mybatis.plus.version>
+        <spring.boot.version>3.1.0</spring.boot.version>
+        <mybatis.plus.version>3.5.7</mybatis.plus.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+
+    <scm>
+        <url>https://github.com/l4vid4/mybatis-plus-kit</url>
+        <connection>scm:git:git://github.com/l4vid4/mybatis-plus-kit.git</connection>
+        <developerConnection>scm:git:ssh://github.com/l4vid4/mybatis-plus-kit.git</developerConnection>
+        <tag>v${project.version}</tag>
+    </scm>
 
     <dependencyManagement>
         <dependencies>
@@ -50,14 +58,104 @@
     <developers>
         <developer>
             <id>l4vid4</id>
-            <name>郎瑞峰</name>
+            <name>Lang RuiFeng</name>
             <email>lang1863239@163.com</email>
         </developer>
     </developers>
 
-    <scm>
-        <connection>scm:git:git://github.com/l4vid4/mybatis-plus-kit.git</connection>
-        <developerConnection>scm:git:ssh://github.com/l4vid4/mybatis-plus-kit.git</developerConnection>
-        <url>https://github.com/l4vid4/mybatis-plus-kit</url>
-    </scm>
+    <distributionManagement>
+        <repository>
+            <id>ossrh</id>
+            <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://s01.oss.sonatype.org/content/repositories/snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
+
+    <build>
+        <plugins>
+            <!-- Compiler -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.13.0</version>
+                <configuration>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
+            </plugin>
+            <!-- Source -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.3.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Javadoc -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.10.0</version>
+                <configuration>
+                    <doclint>none</doclint>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- GPG -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>3.2.3</version>
+                <configuration>
+                    <executable>C:\\Program Files (x86)\\GnuPG\\bin\\gpg.exe</executable>
+                    <gpgArguments>
+                        <arg>--batch</arg>
+                        <arg>--pinentry-mode</arg>
+                        <arg>loopback</arg>
+                    </gpgArguments>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.sonatype.central</groupId>
+                <artifactId>central-publishing-maven-plugin</artifactId>
+                <version>0.4.0</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <publishingServerId>ossrh</publishingServerId>
+                    <tokenAuth>true</tokenAuth>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
