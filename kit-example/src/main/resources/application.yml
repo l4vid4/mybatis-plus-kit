@@ -7,3 +7,7 @@ spring:
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://192.168.56.10:3306/mp?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai
+
+mybatis-plus-kit:
+  response-wrapper-enabled: false
+  exception-handler-enabled: false

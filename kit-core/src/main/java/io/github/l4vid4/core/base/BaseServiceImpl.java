@@ -15,12 +15,13 @@ import java.util.function.Function;
 
 public class BaseServiceImpl<M extends com.baomidou.mybatisplus.core.mapper.BaseMapper<T>, T> extends ServiceImpl<M, T> implements BaseService<T> {
     @Override
-    public Page<T> page(PageQuery query) {
-        return this.page(query.toMpPage(), new QueryWrapper<>());
+    public PageResult<T> pageQuery(PageQuery query) {
+        Page<T> page = this.page(query.toMpPage(), new QueryWrapper<>());
+        return PageResult.of(page, t -> t);
     }
 
     @Override
-    public <V> PageResult<V> page(PageQuery query, Function<T, V> convertor) {
+    public <V> PageResult<V> pageQuery(PageQuery query, Function<T, V> convertor) {
         Page<T> page = this.page(query.toMpPage());
         return PageResult.of(page, convertor);
     }

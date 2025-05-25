@@ -2,17 +2,16 @@ package io.github.l4vid4.core.base;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import io.github.l4vid4.core.enums.DisableApis;
 import io.github.l4vid4.core.model.PageQuery;
 import io.github.l4vid4.core.model.PageResult;
-import io.github.l4vid4.core.model.ResultResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.List;
+import java.util.function.Function;
 
 public abstract class BaseController<T, S extends BaseService<T>> {
 
@@ -20,49 +19,79 @@ public abstract class BaseController<T, S extends BaseService<T>> {
     protected S service;
 
     @GetMapping("/getById/{id}")
-    public ResultResponse<T> getById(@PathVariable Serializable id) {
-        return ResultResponse.success(service.getById(id));
+    public T getById(@PathVariable Serializable id) {
+        checkDisabled(DisableApis.Api.GET_BY_ID);
+        return service.getById(id);
     }
 
     @GetMapping("/list")
-    public ResultResponse<List<T>> list() {
-        return ResultResponse.success(service.list());
+    public List<T> list() {
+        checkDisabled(DisableApis.Api.LIST);
+        return service.list();
+    }
+
+    @GetMapping("/listByIds")
+    public List<T> listByIds(@RequestBody List<Serializable> ids) {
+        checkDisabled(DisableApis.Api.LIST_BY_IDS);
+        return service.listByIds(ids);
     }
 
     @PostMapping("/listByCondition")
-    public ResultResponse<List<T>> listByCondition(@RequestBody T entity) {
-        return ResultResponse.success(service.list(new QueryWrapper<>(entity)));
+    public List<T> listByCondition(@RequestBody T entity) {
+        checkDisabled(DisableApis.Api.LIST_BY_CONDITION);
+        return service.list(new QueryWrapper<>(entity));
     }
 
     @PostMapping("/page")
-    public ResultResponse<Page<T>> page(@RequestBody PageQuery query) {
-        return ResultResponse.success(service.page(query));
+    public PageResult<T> page(@RequestBody PageQuery query) {
+        checkDisabled(DisableApis.Api.PAGE);
+        return service.pageQuery(query);
     }
 
     @PostMapping("/pageVo")
-    public ResultResponse<PageResult<Object>> pageVo(@RequestBody PageQuery query) {
-        // 默认直接返回原始实体，如果你不指定转换器
-        Page<T> page = service.page(query);
-        return ResultResponse.success(PageResult.of(page, t -> t));
+    public PageResult<?> pageVo(@RequestBody PageQuery query) {
+        Function<T, ?> convertor = voConvertor();
+        return service.pageQuery(query, convertor);
+    }
+
+    /**
+     * @author l4vid4
+     * @description //如果要使用pageVO返回VO的逻辑，请重写此方法。
+     * @return java.util.function.Function<T,?>
+     **/
+    protected Function<T, ?> voConvertor() {
+        return t->t;
     }
 
     @PostMapping("/save")
-    public ResultResponse<Boolean> save(@RequestBody T entity) {
-        return ResultResponse.success(service.save(entity));
+    public Boolean save(@RequestBody T entity) {
+        checkDisabled(DisableApis.Api.SAVE);
+        return service.save(entity);
     }
 
     @PostMapping("/update")
-    public ResultResponse<Boolean> update(@RequestBody T entity) {
-        return ResultResponse.success(service.updateById(entity));
+    public Boolean update(@RequestBody T entity) {
+        checkDisabled(DisableApis.Api.UPDATE);
+        return service.updateById(entity);
     }
 
     @GetMapping("/deleteById/{id}")
-    public ResultResponse<Boolean> deleteById(@PathVariable Serializable id) {
-        return ResultResponse.success(service.removeById(id));
+    public Boolean deleteById(@PathVariable Serializable id) {
+        checkDisabled(DisableApis.Api.DELETE_BY_ID);
+        return service.removeById(id);
     }
 
     @PostMapping("/delete")
-    public ResultResponse<Boolean> delete(@RequestBody List<Serializable> ids) {
-        return ResultResponse.success(service.removeByIds(ids));
+    public Boolean delete(@RequestBody List<Serializable> ids) {
+        checkDisabled(DisableApis.Api.DELETE);
+        return service.removeByIds(ids);
     }
+
+    protected void checkDisabled(DisableApis.Api api) {
+        DisableApis annotation = this.getClass().getAnnotation(DisableApis.class);
+        if (annotation != null && Arrays.asList(annotation.value()).contains(api)) {
+            throw new UnsupportedOperationException("该接口已禁用：" + api.name());
+        }
+    }
+
 }

@@ -9,7 +9,7 @@ import java.util.function.Function;
 
 public interface BaseService<T> extends IService<T> {
 
-    Page<T> page(PageQuery query);
+    PageResult<T> pageQuery(PageQuery query);
 
-    <V> PageResult<V> page(PageQuery query, Function<T, V> convertor);
+    <V> PageResult<V> pageQuery(PageQuery query, Function<T, V> convertor);
 }

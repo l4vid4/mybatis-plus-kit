@@ -20,7 +20,7 @@
     <dependencies>
         <dependency>
             <groupId>io.github.l4vid4</groupId>
-            <artifactId>kit-core</artifactId>
+            <artifactId>kit-starter</artifactId>
             <version>0.1.0</version>
         </dependency>
         <dependency>
