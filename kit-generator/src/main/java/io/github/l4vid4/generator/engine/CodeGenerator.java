@@ -70,7 +70,10 @@ public class CodeGenerator {
 
     // ===== 构建并返回 FastAutoGenerator 实例 =====
     public FastAutoGenerator build() {
-        String baseDir = System.getProperty("user.dir") + "/" + module + "/src/main";
+        String projectDir = System.getProperty("user.dir");
+        String baseDir = (module == null || module.isEmpty())
+                ? projectDir + "/src/main"
+                : projectDir + "/" + module + "/src/main";
         String outputDir = baseDir + "/java";
         String xmlOutput = baseDir + "/resources/mapper";
 

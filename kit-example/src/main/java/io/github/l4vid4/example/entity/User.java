@@ -10,6 +10,7 @@ import java.util.Date;
 import io.github.l4vid4.core.annotation.AutoApi;
 import io.github.l4vid4.core.annotation.DisableApis;
 import io.github.l4vid4.core.enums.Api;
+import io.github.l4vid4.core.enums.AutoApiMode;
 import io.github.l4vid4.example.service.impl.UserServiceImpl;
 import lombok.Data;
 
@@ -20,7 +21,7 @@ import lombok.Data;
 @TableName(value ="user")
 @Data
 @DisableApis(Api.GET_BY_ID)
-@AutoApi(path = "/user")
+@AutoApi(path = "/user",mode = AutoApiMode.EXTENDS)
 public class User implements Serializable {
     /**
      * 用户id

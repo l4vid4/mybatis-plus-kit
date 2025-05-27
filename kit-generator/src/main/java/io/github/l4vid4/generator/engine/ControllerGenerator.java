@@ -12,7 +12,10 @@ public class ControllerGenerator extends CodeGenerator{
 
     @Override
     public FastAutoGenerator build() {
-        String baseDir = System.getProperty("user.dir") + "/" + module + "/src/main";
+        String projectDir = System.getProperty("user.dir");
+        String baseDir = (module == null || module.isEmpty())
+                ? projectDir + "/src/main"
+                : projectDir + "/" + module + "/src/main";
         String outputDir = baseDir + "/java";
         String xmlOutput = baseDir + "/resources/mapper";
 
