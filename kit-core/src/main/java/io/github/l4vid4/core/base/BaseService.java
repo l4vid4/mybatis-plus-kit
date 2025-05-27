@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import io.github.l4vid4.core.model.PageQuery;
 import io.github.l4vid4.core.model.PageResult;
 
+import java.io.Serializable;
 import java.util.function.Function;
 
 public interface BaseService<T> extends IService<T> {

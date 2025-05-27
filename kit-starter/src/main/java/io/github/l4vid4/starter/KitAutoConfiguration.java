@@ -3,11 +3,15 @@ package io.github.l4vid4.starter;
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
+import io.github.l4vid4.core.annotation.AutoApi;
+import io.github.l4vid4.core.proxy.DynamicApiRegistrar;
 import io.github.l4vid4.starter.conf.KitProperties;
 import io.github.l4vid4.starter.web.ExceptionHandlerAdvice;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import io.github.l4vid4.starter.web.ResponseWrapperAdvice;
@@ -37,6 +41,15 @@ public class KitAutoConfiguration {
     @ConditionalOnProperty(prefix = "mybatis-plus-kit", name = "exception-handler-enabled", havingValue = "true", matchIfMissing = true)
     public ExceptionHandlerAdvice baseControllerAdvice(KitProperties properties) {
         return new ExceptionHandlerAdvice(properties);
+    }
+
+
+
+    @Bean
+    @ConditionalOnClass(AutoApi.class)
+    @ConditionalOnProperty(name = "mybatis-plus-kit.auto-api-mode", havingValue = "proxy", matchIfMissing = true)
+    public DynamicApiRegistrar dynamicApiRegistrar(ApplicationContext context, KitProperties properties) {
+        return new DynamicApiRegistrar(context, properties.getBasePackage());
     }
 
 }

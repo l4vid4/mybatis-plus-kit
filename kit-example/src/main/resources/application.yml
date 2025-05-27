@@ -11,3 +11,5 @@ spring:
 mybatis-plus-kit:
   response-wrapper-enabled: false
   exception-handler-enabled: false
+  auto-api-mode: proxy
+  base-package: io.github.l4vid4.example

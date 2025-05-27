@@ -2,7 +2,6 @@ package io.github.l4vid4.example.service;
 
 import io.github.l4vid4.core.base.BaseService;
 import io.github.l4vid4.example.entity.User;
-import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
 * @author Lang

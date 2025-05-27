@@ -1,6 +1,6 @@
 package io.github.l4vid4.starter.model;
 
-import io.github.l4vid4.core.enums.ResponseCode;
+import io.github.l4vid4.starter.enums.ResponseCode;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 

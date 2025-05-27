@@ -6,6 +6,11 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.util.Date;
+
+import io.github.l4vid4.core.annotation.AutoApi;
+import io.github.l4vid4.core.annotation.DisableApis;
+import io.github.l4vid4.core.enums.Api;
+import io.github.l4vid4.example.service.impl.UserServiceImpl;
 import lombok.Data;
 
 /**
@@ -14,6 +19,8 @@ import lombok.Data;
  */
 @TableName(value ="user")
 @Data
+@DisableApis(Api.GET_BY_ID)
+@AutoApi(path = "/user", service = UserServiceImpl.class)
 public class User implements Serializable {
     /**
      * 用户id
