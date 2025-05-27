@@ -1,5 +1,5 @@
 # MyBatis-Plus-Kit
-🚀 **MyBatis-Plus-Kit** 是基于 [MyBatis-Plus](https://baomidou.com) 的增强组件，提供**零侵入、即插即用**的能力增强，聚焦**自动生成 RESTful API**、**统一分页模型**、**统一响应体封装**等常用需求，极大简化开发流程。
+🚀 **MyBatis-Plus-Kit** 是基于**MyBatis-Plus**的增强组件，专注于提升开发效率，支持零侵入、即插即用的能力扩展。它聚焦于 **免写 Controller、代码一键生成、通用响应封装** 等核心场景，让您只需专注业务建模，繁琐的样板代码交给我们自动完成。
 
 ![](./docs/images/logo.png)
 
