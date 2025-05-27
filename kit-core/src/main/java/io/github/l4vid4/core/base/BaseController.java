@@ -6,16 +6,15 @@ import io.github.l4vid4.core.enums.Api;
 import io.github.l4vid4.core.model.PageQuery;
 import io.github.l4vid4.core.model.PageResult;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.function.Function;
 
-@RestController
-@RequestMapping
 public abstract class BaseController<T, S extends BaseService<T>> {
 
-    @Autowired
     protected S service;
 
     protected Class<T> entityClass; // 新增字段
@@ -100,7 +99,7 @@ public abstract class BaseController<T, S extends BaseService<T>> {
         if (entityAnnotation != null) {
             for (Api disabled : entityAnnotation.value()) {
                 if (disabled == api) {
-                    throw new UnsupportedOperationException("该接口已被禁用：" + api.name());
+                    throw new ResponseStatusException(HttpStatus.NOT_FOUND, "该API已被禁用");
                 }
             }
         }
@@ -108,7 +107,7 @@ public abstract class BaseController<T, S extends BaseService<T>> {
         if (thisAnnotation != null) {
             for (Api disabled : thisAnnotation.value()) {
                 if (disabled == api) {
-                    throw new UnsupportedOperationException("该接口已被禁用：" + api.name());
+                    throw new ResponseStatusException(HttpStatus.NOT_FOUND, "该API已被禁用");
                 }
             }
         }

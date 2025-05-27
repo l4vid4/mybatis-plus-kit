@@ -7,6 +7,8 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 
 import io.github.l4vid4.core.annotation.AutoApi;
+import io.github.l4vid4.core.annotation.TestAnnotation;
+import io.github.l4vid4.core.enums.AutoApiMode;
 import io.github.l4vid4.example.service.AddressService;
 import lombok.Data;
 
@@ -16,7 +18,8 @@ import lombok.Data;
  */
 @TableName(value ="address")
 @Data
-@AutoApi(path = "/address", service = AddressService.class)
+@AutoApi(path = "/address", mode = AutoApiMode.EXTENDS)
+@TestAnnotation
 public class Address implements Serializable {
     /**
      * 

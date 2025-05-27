@@ -20,7 +20,7 @@ import lombok.Data;
 @TableName(value ="user")
 @Data
 @DisableApis(Api.GET_BY_ID)
-@AutoApi(path = "/user", service = UserServiceImpl.class)
+@AutoApi(path = "/user")
 public class User implements Serializable {
     /**
      * 用户id

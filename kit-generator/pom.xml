@@ -23,6 +23,11 @@
             <artifactId>mybatis-plus-generator</artifactId>
             <version>${mybatis.plus.version}</version>
         </dependency>
+        <dependency>
+            <groupId>io.github.l4vid4</groupId>
+            <artifactId>kit-core</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 
 </project>

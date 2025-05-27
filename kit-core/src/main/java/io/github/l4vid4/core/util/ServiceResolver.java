@@ -16,7 +16,7 @@ public class ServiceResolver {
         // 2. 按命名规则推导
         String entitySimpleName = entityClass.getSimpleName();
         String defaultServiceBeanName = Character.toLowerCase(entitySimpleName.charAt(0))
-                + entitySimpleName.substring(1) + "Service";
+                + entitySimpleName.substring(1) + "ServiceImpl";
 
         if (context.containsBean(defaultServiceBeanName)) {
             return context.getBean(defaultServiceBeanName);

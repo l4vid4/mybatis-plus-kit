@@ -18,12 +18,10 @@ public class KitProperties {
      */
     private boolean exceptionHandlerEnabled = true;
 
-    /** * 自动生成 API 的模式
-     * 支持 "proxy" 或 "apt"，默认为 "proxy"
-     * - "proxy": 通过动态代理生成 API
-     * - "apt": 使用注解处理器生成 API
+    /** 是否开启动态代理
+     *  true开启，false不开启
      */
-    private String autoApiMode = "proxy"; // 支持 "proxy" 或 "apt"，默认为 "proxy"
+    private boolean autoApiProxyEnabled = true; // 支持 "proxy" 或 "apt"，默认为 "proxy"
 
 
     private String basePackage = ""; // 基础包名，用于扫描实体类和生成 API 的路径前缀

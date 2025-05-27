@@ -2,6 +2,7 @@ package io.github.l4vid4.core.proxy;
 
 import io.github.l4vid4.core.base.BaseController;
 import io.github.l4vid4.core.annotation.AutoApi;
+import io.github.l4vid4.core.enums.AutoApiMode;
 import io.github.l4vid4.core.util.ServiceResolver;
 import net.bytebuddy.ByteBuddy;
 import net.bytebuddy.description.annotation.AnnotationDescription;
@@ -47,6 +48,10 @@ public class DynamicApiRegistrar implements ApplicationListener<ContextRefreshed
             Class<?> entityClass = Class.forName(bd.getBeanClassName());
 
             AutoApi autoApi = entityClass.getAnnotation(AutoApi.class);
+
+            if(autoApi.mode() != AutoApiMode.PROXY){
+                continue;
+            }
 
             String path = autoApi.path().isEmpty() ? "/" + entityClass.getSimpleName().toLowerCase() : autoApi.path();
 

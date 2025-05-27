@@ -47,7 +47,7 @@ public class KitAutoConfiguration {
 
     @Bean
     @ConditionalOnClass(AutoApi.class)
-    @ConditionalOnProperty(name = "mybatis-plus-kit.auto-api-mode", havingValue = "proxy", matchIfMissing = true)
+    @ConditionalOnProperty(prefix = "mybatis-plus-kit", name = "auto-api-proxy-enabled", havingValue = "true", matchIfMissing = true)
     public DynamicApiRegistrar dynamicApiRegistrar(ApplicationContext context, KitProperties properties) {
         return new DynamicApiRegistrar(context, properties.getBasePackage());
     }

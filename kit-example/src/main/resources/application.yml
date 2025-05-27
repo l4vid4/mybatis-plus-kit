@@ -9,7 +9,7 @@ spring:
     url: jdbc:mysql://192.168.56.10:3306/mp?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai
 
 mybatis-plus-kit:
-  response-wrapper-enabled: false
-  exception-handler-enabled: false
-  auto-api-mode: proxy
+  response-wrapper-enabled: true
+  exception-handler-enabled: true
+  auto-api-proxy-enabled: true
   base-package: io.github.l4vid4.example

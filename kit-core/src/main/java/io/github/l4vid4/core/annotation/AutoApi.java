@@ -1,5 +1,7 @@
 package io.github.l4vid4.core.annotation;
 
+import io.github.l4vid4.core.enums.AutoApiMode;
+
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -12,4 +14,6 @@ public @interface AutoApi {
     String path() default "";
 
     Class<?> service() default Object.class;
+
+    AutoApiMode mode() default AutoApiMode.PROXY;
 }
