@@ -6,7 +6,7 @@
     <parent>
         <groupId>io.github.l4vid4</groupId>
         <artifactId>mybatis-plus-kit</artifactId>
-        <version>0.1.1</version>
+        <version>0.2.0</version>
     </parent>
 
     <artifactId>kit-example</artifactId>
@@ -26,6 +26,11 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.github.l4vid4</groupId>
+            <artifactId>kit-generator</artifactId>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>mysql</groupId>

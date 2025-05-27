@@ -5,7 +5,6 @@ import io.github.l4vid4.core.annotation.DisableApis;
 import io.github.l4vid4.core.enums.Api;
 import io.github.l4vid4.core.model.PageQuery;
 import io.github.l4vid4.core.model.PageResult;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
