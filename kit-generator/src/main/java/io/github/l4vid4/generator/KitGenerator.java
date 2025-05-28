@@ -21,14 +21,14 @@ public class KitGenerator {
                 .build()
                 .execute();
 
-        // 生成Controller
-        new ControllerGenerator()
-                .dataSource(url, username, password)
-                .packageName("io.github.l4vid4.example")
-                .module("kit-example")
-                .tables("user1")
-                .author("l4vid4")
-                .build()
-                .execute();
+//        // 生成Controller
+//        new ControllerGenerator()
+//                .dataSource(url, username, password)
+//                .packageName("io.github.l4vid4.example")
+//                .module("kit-example")
+//                .tables("user1")
+//                .author("l4vid4")
+//                .build()
+//                .execute();
     }
 }
