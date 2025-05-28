@@ -1,10 +1,8 @@
 package io.github.l4vid4.core.util;
 
-import com.baomidou.mybatisplus.core.metadata.TableFieldInfo;
 import com.baomidou.mybatisplus.core.metadata.TableInfo;
 import com.baomidou.mybatisplus.core.metadata.TableInfoHelper;
 
-import java.io.Serializable;
 import java.lang.reflect.Field;
 
 public class Tool {
