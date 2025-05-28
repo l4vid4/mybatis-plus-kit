@@ -49,12 +49,12 @@ mybatis-plus-kit
 <dependency>
   <groupId>io.github.l4vid4</groupId>
   <artifactId>kit-starter</artifactId>
-  <version>0.2.0</version>
+  <version>0.2.1</version>
 </dependency>
 <dependency>
     <groupId>io.github.l4vid4</groupId>
     <artifactId>kit-generator</artifactId>
-    <version>0.2.0</version>
+    <version>0.2.1</version>
 </dependency>
 ```
 
