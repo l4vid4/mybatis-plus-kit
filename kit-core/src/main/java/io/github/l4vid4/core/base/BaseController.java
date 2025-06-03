@@ -59,9 +59,7 @@ public abstract class BaseController<T, S extends BaseService<T>> {
     }
 
     /**
-     * @author l4vid4
      * @description //如果要使用pageVO返回VO的逻辑，请重写此方法。
-     * @return java.util.function.Function<T,?>
      **/
     protected Function<T, ?> voConvertor() {
         return t->t;
