@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
@@ -19,8 +20,10 @@ public class ResponseWrapperAdvice implements ResponseBodyAdvice<Object> {
 
     @Override
     public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
-        return true;
+        // 只拦截 application/json
+        return MappingJackson2HttpMessageConverter.class.isAssignableFrom(converterType);
     }
+
 
     /**
      * 统一包装响应体
@@ -32,11 +35,7 @@ public class ResponseWrapperAdvice implements ResponseBodyAdvice<Object> {
                                   Class<? extends HttpMessageConverter<?>> selectedConverterType,
                                   org.springframework.http.server.ServerHttpRequest request,
                                   org.springframework.http.server.ServerHttpResponse response) {
-        // 已是 ApiResponse 不再包装
-        if (body instanceof ResultResponse) {
-            return body;
-        }
-        return ResultResponse.success(body);
+        return wrap(body);
     }
 
     /**
@@ -44,12 +43,11 @@ public class ResponseWrapperAdvice implements ResponseBodyAdvice<Object> {
      */
     private Object wrap(Object body) {
         if (!properties.isResponseWrapperEnabled()) {
-            // 如果关闭封装，直接返回原始数据
-            if (body instanceof ResultResponse<?>) {
-                return ((ResultResponse<?>) body).getData();
-            }
-            return body;
+            // 不包装，返回原始 body
+            return body instanceof ResultResponse<?> ? ((ResultResponse<?>) body).getData() : body;
+        } else {
+            // 包装成 ResultResponse
+            return body instanceof ResultResponse<?> ? body : ResultResponse.success(body);
         }
-        return body;
     }
 }
